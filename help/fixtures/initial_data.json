@@ -1,0 +1,234 @@
+[
+    {
+        "model": "help.helpCategory",
+        "pk": 1,
+        "fields": {
+            "name": "Medical Services",
+            "description": "Professional medical consultation and healthcare services",
+            "icon": "stethoscope",
+            "order": 1
+        }
+    },
+    {
+        "model": "help.helpCategory",
+        "pk": 2,
+        "fields": {
+            "name": "Tutoring",
+            "description": "Educational support and tutoring services",
+            "icon": "book",
+            "order": 2
+        }
+    },
+    {
+        "model": "help.helpCategory",
+        "pk": 3,
+        "fields": {
+            "name": "Repair & Maintenance",
+            "description": "Home and appliance repair services",
+            "icon": "wrench",
+            "order": 3
+        }
+    },
+    {
+        "model": "help.helpCategory",
+        "pk": 4,
+        "fields": {
+            "name": "Consultation",
+            "description": "Professional consultation services",
+            "icon": "briefcase",
+            "order": 4
+        }
+    },
+    {
+        "model": "help.initialField",
+        "pk": 1,
+        "fields": {
+            "name": "First Name",
+            "field_key": "first_name",
+            "field_type": "text",
+            "required": true,
+            "order": 1,
+            "placeholder": "Enter your first name"
+        }
+    },
+    {
+        "model": "help.initialField",
+        "pk": 2,
+        "fields": {
+            "name": "Last Name",
+            "field_key": "last_name",
+            "field_type": "text",
+            "required": true,
+            "order": 2,
+            "placeholder": "Enter your last name"
+        }
+    },
+    {
+        "model": "help.initialField",
+        "pk": 3,
+        "fields": {
+            "name": "IDNP",
+            "field_key": "idnp",
+            "field_type": "number",
+            "required": true,
+            "order": 3,
+            "placeholder": "Enter your IDNP"
+        }
+    },
+    {
+        "model": "help.initialField",
+        "pk": 4,
+        "fields": {
+            "name": "Email",
+            "field_key": "email",
+            "field_type": "email",
+            "required": true,
+            "order": 4,
+            "placeholder": "your.email@example.com"
+        }
+    },
+    {
+        "model": "help.initialField",
+        "pk": 5,
+        "fields": {
+            "name": "Phone",
+            "field_key": "phone",
+            "field_type": "phone",
+            "required": false,
+            "order": 5,
+            "placeholder": "+373..."
+        }
+    },
+    {
+        "model": "help.customField",
+        "pk": 1,
+        "fields": {
+            "help_category": 1,
+            "name": "Specialization",
+            "field_key": "specialization",
+            "field_type": "text",
+            "required": true,
+            "order": 1,
+            "placeholder": "e.g., Cardiology, General Medicine"
+        }
+    },
+    {
+        "model": "help.customField",
+        "pk": 2,
+        "fields": {
+            "help_category": 1,
+            "name": "Years of Experience",
+            "field_key": "experience",
+            "field_type": "number",
+            "required": true,
+            "order": 2,
+            "placeholder": "Years"
+        }
+    },
+    {
+        "model": "help.customField",
+        "pk": 3,
+        "fields": {
+            "help_category": 1,
+            "name": "License Number",
+            "field_key": "license",
+            "field_type": "text",
+            "required": true,
+            "order": 3,
+            "placeholder": "Medical license number"
+        }
+    },
+    {
+        "model": "help.customField",
+        "pk": 4,
+        "fields": {
+            "help_category": 1,
+            "name": "Description of Services",
+            "field_key": "services_description",
+            "field_type": "textarea",
+            "required": true,
+            "order": 4,
+            "placeholder": "Describe the services you provide"
+        }
+    },
+    {
+        "model": "help.customField",
+        "pk": 5,
+        "fields": {
+            "help_category": 2,
+            "name": "Subject",
+            "field_key": "subject",
+            "field_type": "text",
+            "required": true,
+            "order": 1,
+            "placeholder": "e.g., Mathematics, English"
+        }
+    },
+    {
+        "model": "help.customField",
+        "pk": 6,
+        "fields": {
+            "help_category": 2,
+            "name": "Education Level",
+            "field_key": "education_level",
+            "field_type": "choice",
+            "required": true,
+            "order": 2,
+            "placeholder": "",
+            "choices": "Elementary, High School, College, Advanced"
+        }
+    },
+    {
+        "model": "help.customField",
+        "pk": 7,
+        "fields": {
+            "help_category": 2,
+            "name": "Rate per Hour",
+            "field_key": "rate",
+            "field_type": "number",
+            "required": true,
+            "order": 3,
+            "placeholder": "USD"
+        }
+    },
+    {
+        "model": "help.customField",
+        "pk": 8,
+        "fields": {
+            "help_category": 3,
+            "name": "Service Type",
+            "field_key": "service_type",
+            "field_type": "choice",
+            "required": true,
+            "order": 1,
+            "placeholder": "",
+            "choices": "Plumbing, Electrical, Carpentry, General Maintenance, Appliance Repair"
+        }
+    },
+    {
+        "model": "help.customField",
+        "pk": 9,
+        "fields": {
+            "help_category": 3,
+            "name": "Available Date",
+            "field_key": "available_date",
+            "field_type": "date",
+            "required": true,
+            "order": 2,
+            "placeholder": ""
+        }
+    },
+    {
+        "model": "help.customField",
+        "pk": 10,
+        "fields": {
+            "help_category": 4,
+            "name": "Consultation Type",
+            "field_key": "consultation_type",
+            "field_type": "text",
+            "required": true,
+            "order": 1,
+            "placeholder": "e.g., Legal, Business, Career"
+        }
+    }
+]

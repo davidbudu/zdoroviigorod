@@ -1,0 +1,160 @@
+<!-- ================================================================ -->
+<!-- person_form.html (RO) - С поддержкой select полей -->
+{% extends "help/base.html" %}
+{% load custom_filters %}
+
+{% block title %}{% if is_edit %}Editare{% else %}Adăugare{% endif %} persoană{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 900px;">
+    <div class="card-header">
+        <h2 class="card-title">
+            {% if is_edit %}
+                ✏️ Editarea datelor persoanei #{{ person.id }}
+            {% else %}
+                ➕ Adăugarea unei persoane noi
+            {% endif %}
+        </h2>
+    </div>
+    
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div style="background: #f9fafb; padding: 25px; border-radius: 12px; margin-bottom: 30px;">
+            <h3 style="margin-bottom: 20px; color: #1f2937; font-size: 18px;">Informații de bază</h3>
+            
+            <div class="form-row">
+                {% for field_name, field in form.fields.items %}
+                    <div class="form-group">
+                        <label for="id_{{ field_name }}">
+                            {{ field.label }}
+                            {% if field.required %}<span style="color: #ef4444;">*</span>{% endif %}
+                        </label>
+                        
+                        {% if field.choices %}
+                            {# SELECT / DROPDOWN поле - проверяем наличие choices #}
+                            <select 
+                                name="{{ field_name }}" 
+                                id="id_{{ field_name }}"
+                                {% if field.required %}required{% endif %}
+                            >
+                                {% for value, label in field.choices %}
+                                    <option value="{{ value }}" 
+                                        {% if is_edit and person.base_data|get_item:field_name == value %}selected{% endif %}
+                                    >
+                                        {{ label }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        
+                        {% elif field.widget.input_type == "textarea" %}
+                            {# TEXTAREA поле #}
+                            <textarea 
+                                name="{{ field_name }}" 
+                                id="id_{{ field_name }}"
+                                {% if field.required %}required{% endif %}
+                                style="min-height: 100px;"
+                            >{% if is_edit %}{{ person.base_data|get_item:field_name }}{% endif %}</textarea>
+                        
+                        {% elif field.widget.input_type == "email" %}
+                            {# EMAIL поле #}
+                            <input 
+                                type="email" 
+                                name="{{ field_name }}" 
+                                id="id_{{ field_name }}"
+                                placeholder="{{ field.widget.attrs.placeholder|default:'' }}"
+                                {% if field.required %}required{% endif %}
+                                value="{% if is_edit %}{{ person.base_data|get_item:field_name }}{% endif %}"
+                            >
+                        
+                        {% elif field.widget.input_type == "number" %}
+                            {# NUMBER поле #}
+                            <input 
+                                type="number" 
+                                name="{{ field_name }}" 
+                                id="id_{{ field_name }}"
+                                placeholder="{{ field.widget.attrs.placeholder|default:'' }}"
+                                {% if field.required %}required{% endif %}
+                                value="{% if is_edit %}{{ person.base_data|get_item:field_name }}{% endif %}"
+                            >
+                        
+                        {% elif field.widget.input_type == "date" %}
+                            {# DATE поле #}
+                            <input 
+                                type="date" 
+                                name="{{ field_name }}" 
+                                id="id_{{ field_name }}"
+                                {% if field.required %}required{% endif %}
+                                value="{% if is_edit %}{{ person.base_data|get_item:field_name }}{% endif %}"
+                            >
+                        
+                        {% else %}
+                            {# TEXT поле (по умолчанию) #}
+                            <input 
+                                type="text" 
+                                name="{{ field_name }}" 
+                                id="id_{{ field_name }}"
+                                placeholder="{{ field.widget.attrs.placeholder|default:'' }}"
+                                {% if field.required %}required{% endif %}
+                                value="{% if is_edit %}{{ person.base_data|get_item:field_name }}{% endif %}"
+                            >
+                        {% endif %}
+                        
+                        {% if form.errors|get_item:field_name %}
+                            <div style="color: #ef4444; font-size: 12px; margin-top: 8px;">
+                                {% for error in form.errors|get_item:field_name %}
+                                    ❌ {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- Butoane -->
+        <div style="display: flex; gap: 15px; margin-top: 30px;">
+            <button type="submit" class="btn btn-primary" style="padding: 12px 30px; font-size: 16px;">
+                {% if is_edit %}💾 Salvează modificările{% else %}➕ Adăugați persoană{% endif %}
+            </button>
+            <a href="{% if is_edit %}{% url 'person_detail' person.id %}{% else %}{% url 'people_list' %}{% endif %}" 
+               class="btn btn-secondary"
+               style="padding: 12px 30px; font-size: 16px;">
+                Anulare
+            </a>
+        </div>
+    </form>
+</div>
+
+<style>
+/* Стили для select, чтобы выглядел как остальные поля */
+select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: white;
+    cursor: pointer;
+    transition: border-color 0.15s ease-in-out;
+}
+
+select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+select:required:invalid {
+    color: #9ca3af;
+}
+
+select option {
+    color: #1f2937;
+}
+
+select option:first-child {
+    color: #9ca3af;
+}
+</style>
+{% endblock %}

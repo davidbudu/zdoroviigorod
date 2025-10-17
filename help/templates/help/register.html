@@ -1,0 +1,38 @@
+{% extends "help/base.html" %}
+{% load custom_filters %}
+
+{% block title %}Înregistrare - Portal de ajutor{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 500px; margin: 0 auto;">
+    <h2 style="margin-bottom: 30px; color: #0ea5e9;">Creați-vă contul</h2>
+    
+    <form method="POST">
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {% if field.field.widget.input_type == "textarea" %}
+                    <textarea name="{{ field.name }}" id="{{ field.id_for_label }}"></textarea>
+                {% else %}
+                    {{ field }}
+                {% endif %}
+                {% if field.errors %}
+                    <div class="error">
+                        {% for error in field.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Înregistrare</button>
+    </form>
+    
+    <p style="text-align: center; margin-top: 20px; color: #64748b;">
+        Sunteți deja înregistrat? <a href="{% url 'login' %}" style="color: #0ea5e9;">Autentificați-vă aici</a>
+    </p>
+</div>
+{% endblock %}
